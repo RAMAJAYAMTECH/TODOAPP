@@ -1,0 +1,16 @@
+[#Part: LED Mailing Address]
+	;Background:green
+
+	Bottom Line	: LED State, LED PriorState, LED VAT Country, LED Country,  LEDPinCode, LED_AADHAR
+	
+[Line:LED_AADHAR]
+	Field: MEDIUM PROMPT,numberadd
+	LOCAL:Field:MEDIUM PROMPT:Set as:"Aadhar Number:"
+	
+[Field:numberadd]
+	Use:name field
+	Storage:aadharnumber
+	
+[System:UDF]
+	
+	aadharnumber:String:10050

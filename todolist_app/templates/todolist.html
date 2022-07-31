@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+<html>
+
+{% block title %}
+<title> Todo List Manager</title>
+{% endblock title %}
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link href="vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
+<script src="vendor/select2/dist/js/select2.min.js"></script>
+<link href="path/to/select2.min.css" rel="stylesheet" />
+<script src="path/to/select2.min.js"></script>
+
+{% block content %}
+
+<head>
+  <style>
+  * {
+    box-sizing: border-box;
+  }
+
+  #ourInput {
+    background-image: url('/css/searchicon.png');
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+  }
+
+  #ourUL {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #ourUL li a {
+    border: 1px solid #ddd;
+    margin-top: -1px; /* Prevent double borders */
+    background-color: #f6f6f6;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: block
+  }
+
+  #ourUL li a:hover:not(.header) {
+    background-color: #eee;
+  }
+  marquee {
+    width: 100%;
+    padding: 3px 0  ;
+    background-color: lightblue;
+  }
+  :root {
+    --primary-color: #00bcd4;
+    --accent-color: #f50057;
+
+    --text-color: #263238;
+    --body-color: #80deea;
+    --main-font: 'roboto';
+    --font-bold: 700;
+    --font-regular: 400;
+  }
+  * { box-sizing: border-box }
+  body {
+    color: var(--text-color);
+    background-color: var(--body-color);
+    font-family: var(--main-font), Arial;
+    font-weight: var(--font-regular);
+  }
+  #myInput {
+    background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 40%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    border-radius: 25px;
+    height: 40px;
+    margin-bottom: 12px; /* Add some space below the input */
+  }
+    </style>
+
+    <marquee direction="scroll">**Ramajayam and Assoicates Chartered Acccountants ** Ramajayam and Assoicates Chartered Acccountants ** </marquee>
+</head>
+
+<body>
+    <br/>
+            {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+            {% endfor %}
+            {% endif %}
+<br>
+            <form method="POST" class="row">
+              {% csrf_token %}
+              &emsp;&emsp;
+
+              <div class="form-group col-lg-2" >                                                                               
+                <!--<input type="text" class="form-control " name="clientname" placeholder="clientname" required>&ensp;-->
+                <select class="form-control" id="sss" name="clientname" placeholder="Client Name" required>&emsp;
+                <option selected disabled="True">--Select Clientname--</option>
+                {% for x in all|dictsort:"name"%}
+                <option>{{ x.name }}</option>
+                {% endfor %}
+                </select>
+              </div>
+              <input type="text" style="text-transform:uppercase" class="form-control col-lg-2" name="task" placeholder="TASK" required>&ensp;
+              
+              <div class="form-group col-lg-1.5">
+                <input type="date" class="form-control" name="startdate" id="date" value="{{placement.date|date:"Y-m-d" }}" required>
+              </div>&ensp;
+              <script>
+                var date = new Date();
+                var day = date.getDate();
+                var month = date.getMonth() + 1;
+                var year = date.getFullYear();
+                if (month < 10) month = "0" + month;
+                if (day < 10) day = "0" + day;
+                var today = year + "-" + month + "-" + day;
+                document.getElementById('date').value = today;
+              </script>
+
+              <div class="form-group col-lg-1.5">
+                <input type="date" class="form-control" name="enddate" value="{{placement.date|date:"Y-m-d" }}" required>
+              </div>&ensp;
+
+              <div class="form-group col-lg-1.5">
+                <select class="form-control" id="assignee" name="assignee">
+                  <option selected>Ramajayam</option>
+                  <option>Arul Murugan</option>
+                  <option>Akash</option>
+                  <option>Pavithra</option>
+                  <option>Hithesh</option>
+                  <option>Kalai</option>
+                  <option>Surya</option>
+                </select>
+              </div>&ensp;
+
+              <div class="form-group col-lg-1.5">
+                <select class="form-control" id="status" name="status">
+                  <option selected>Pending</option>
+                  <option>Work in Progress</option>
+                </select>
+              </div>&ensp;
+
+              <div class="form-group col-lg-1.5">
+                <select class="form-control" id="priority" name="priority">
+                  <option  style="color: green;" selected>Normal</option>
+                  <option  style="color: red;">Urgent</option>
+                </select>
+              </div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+                
+              <button type="submit" class="btn btn-primary col-lg-5" name='action'>Add Task</button>
+
+            </form><br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+<input type="search" id="myInput" name="search" onkeyup="myFunction()" placeholder="Search Client Name..."><br>
+
+<div class="row justify-content-center">
+  <div class="col-auto">
+    <table class="table table-bordered table-hover table-sm table-responsive"  id="myTable">
+      <div class="card-group">
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;" >
+          <h5  class="card-header">Arul Murugan&ensp;{{countarulall}} </h5>
+            <div class="card-body" >
+              <h5 class="card-title">Pending Task {{ countarulpending }}</h5>
+              <h5 class="card-text">Work in Progress {{ countarulwip }}</h5>
+              <h5 class="card-text"> Overdue</h5>
+            </div>
+        </div>
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+          <h5  class="card-header">Ramajayam&ensp;{{countramall}}</h5>
+            <div class="card-body">
+              <h5 class="card-title">Pending Task {{ countrampending }}</h5>
+              <h5 class="card-text">Work in Progress {{ countramwip }}</h5>
+              <h5 class="card-text"> Overdue {{ countramapp }}</h5>
+            </div>
+        </div>
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+          <h5  class="card-header">Akash&ensp;{{countakashall}}</h5>
+            <div class="card-body">
+              <h5 class="card-title">Pending Task {{ countakashpending }}</h5>
+              <h5 class="card-text">Work in Progress {{ countakashwip }}</h5>
+              <h5 class="card-text"> Overdue </h5>
+            </div>
+        </div>
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+          <h5  class="card-header">Hithesh&ensp;{{counthitheshall}}</h5>
+            <div class="card-body">
+              <h5 class="card-title">Pending Task {{ counthitheshpending }}</h5>
+              <h5 class="card-text"> Work in Progress {{ counthitheshwip }}</h5>
+              <h5 class="card-text"> Overdue</h5>
+            </div>
+        </div>
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+          <h5  class="card-header">Pavithra&ensp;{{countpavithraall}}</h5>
+            <div class="card-body">
+              <h5 class="card-title">Pending Task {{ countpavithrapending }}</h5>
+              <h5 class="card-text"> Work in Progress {{ countpavithrawip }}</h5>
+              <h5 class="card-text"> Overdue</h5>
+            </div>
+        </div>
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+          <h5  class="card-header">Kalai&ensp;{{countkalaiall}}</h5>
+            <div class="card-body">
+              <h5 class="card-title">Pending Task {{ countkalaipending }}</h5>
+              <h5 class="card-text"> Work in Progress {{ countkalaiwip }}</h5>
+              <h5 class="card-text"> Overdue{{ countkalaiapp }}</h5>
+            </div>
+        </div>
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+          <h5  class="card-header">Surya&ensp;{{countsuryaall}}</h5>
+            <div class="card-body">
+              <h5 class="card-title">Pending Task {{ countsuryapending }}</h5>
+              <h5 class="card-text"> Work in Progress {{ countsuryawip }}</h5>
+              <h5 class="card-text"> Overdue{{ countsuryaapp }}</h5>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+
+<caption>List of Pending Works</caption>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Task id |client Name</th>
+      <th scope="col">Task</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">End Date</th>
+      <th scope="col">Asignee</th>
+      <th scope="col">Status</th>
+      <th scope="col">Final status</th>
+      <th scope="col">Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% if all_tasks %}
+        {% for obj in all_tasks %}
+          {% if obj.fstatus %}
+            {% else %}
+              <tr>
+                <td><a href="{% url 'edit_task' obj.id %}">{{ obj.id  }} | {{ obj.clientname  }}</a></td>
+                <td>{{ obj.task  }} </td>
+                <td>{{ obj.startdate  }}</td>
+                <td>{{ obj.enddate  }}</td>
+                <td>{{ obj.assignee  }}</td>
+                <td>{{ obj.status  }}</td>
+                <td>Pending</td>
+                  {% if obj.priority %}
+                    <td style="background-color: green;">{{ obj.priority  }}</td> 
+                  {% else %} 
+                    <td style="background-color: rgb(255, 4, 4);">{{ obj.priority }} </td>
+                  {% endif %}
+              </tr>
+          {% endif %}
+        {% endfor %}
+      {% endif%}
+  </tbody>
+</table>
+</div>
+</div>
+
+<script>
+  const myFunction = () => {
+  const trs = document.querySelectorAll('#myTable tr:not(.header)')
+  const filter = document.querySelector('#myInput').value
+  const regex = new RegExp(filter, 'i')
+  const isFoundInTds = td => regex.test(td.innerHTML)
+  const isFound = childrenArr => childrenArr.some(isFoundInTds)
+  const setTrStyleDisplay = ({ style, children }) => {
+    style.display = isFound([
+      ...children // <-- All columns
+    ]) ? '' : 'none' 
+                            }
+  trs.forEach(setTrStyleDisplay)
+  }
+</script>
+
+{% endblock content %}
+</body>
+</html>

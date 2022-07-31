@@ -1,0 +1,82 @@
+{% extends 'base99.html' %}
+
+
+{% block title %}
+<title> Todo List Manager</title>
+{% endblock title %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+{% block content %}
+<style>
+      marquee {
+        width: 100%;
+        padding: 3px 0  ;
+        background-color: lightblue;
+      }
+    </style>
+    <marquee direction="scroll">**Ramajayam and Assoicates Chartered Acccountants ** Ramajayam and Assoicates Chartered Acccountants ** </marquee>
+
+<br/>
+            {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+            {% endfor %}
+            {% endif %}
+<br>
+            <form method="POST" class="row">
+                {% csrf_token %}
+                &emsp;&emsp;<input type="text" class="form-control col-lg-2" name="clientname" placeholder="Client Name">&ensp;
+                <input type="text" class="form-control col-lg-2" name="task" placeholder="Task">&ensp;
+                <div class="form-group col-lg-1.5">
+                <input type="date" class="form-control" name="startdate" id="date" value="{{placement.date|date:"Y-m-d" }}" required>
+                </div>&ensp;
+                  <script>
+                    var date = new Date();
+                    var day = date.getDate();
+                    var month = date.getMonth() + 1;
+                    var year = date.getFullYear();
+                    if (month < 10) month = "0" + month;
+                    if (day < 10) day = "0" + day;
+                    var today = year + "-" + month + "-" + day;
+                    document.getElementById('date').value = today;
+                  </script>
+                  <div class="form-group col-lg-1.5">
+                    <input type="date" class="form-control" name="enddate" value="{{placement.date|date:"Y-m-d" }}" required>
+                  </div>&ensp;
+                    <div class="form-group col-lg-1.5">
+                        <select class="form-control" id="assignee" name="assignee">
+                         <option selected>Ramajayam</option>
+                         <option>Arul Murugan</option>
+                         <option>Akash</option>
+                         <option>Pavithra</option>
+                         <option>Hithesh</option>
+                         <option>Kalai</option>
+                         <option>Surya</option>
+                        </select>
+                    </div>&ensp;
+                    <div class="form-group col-lg-1.5">
+                        <select class="form-control" id="status" name="status">
+                        <option selected>Pending</option>
+                        <option>Work in Progress</option>
+                        </select>
+                    </div>&ensp;
+                    <div class="form-group col-lg-1.5">
+                        <select class="form-control" id="priority" name="priority">
+                        <option  style="color: green;" selected>Normal</option>
+                        <option  style="color: red;">Urgent</option>
+                        </select>
+                    </div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+
+                <button type="submit" class="btn btn-primary col-lg-5" name='action'>Add Task</button>
+            </form>
+            <!--<div id="search-add-wrapper">
+              <form method="GET" style="display: flex;">
+                  <input type='text' name='search-area' placeholder="Search your task" value="{{search_input}}">
+                  <input class="button" type="submit" value='Search'>
+              </form>
+            </div>-->
+{% endblock content %}

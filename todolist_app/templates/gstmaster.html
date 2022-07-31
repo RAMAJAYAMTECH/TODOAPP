@@ -1,0 +1,25 @@
+{% extends 'basee.html' %}
+
+{% block title %}
+<title> Todo List Manager</title>
+{% endblock title %}
+
+{% block content %}
+<style>
+      marquee {
+        width: 100%;
+        padding: 3px 0  ;
+        background-color: lightblue;
+      }
+    </style>
+    <marquee direction="scroll">**Ramajayam and Assoicates Chartered Acccountants ** Ramajayam and Assoicates Chartered Acccountants ** </marquee>
+
+<h3>WELCOME TO GST-MASTER</h3>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+   
+<input type="submit" class="form-control col-2 btn-success" value="Add Work" name="submit">
+</form>
+
+
+{% endblock content %} 
