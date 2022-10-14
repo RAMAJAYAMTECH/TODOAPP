@@ -1,0 +1,74 @@
+
+{% block title %}
+<title> Todo List Manager</title>
+{% endblock title %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>  
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"rel="stylesheet" type="text/css" />
+{% block content %}
+
+     
+<style>
+      marquee {
+        width: 100%;
+        padding: 3px 0  ;
+        background-color: lightblue;
+      }
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          
+          <a class="nav-item nav-link" href="{% url 'file_report' %}">File List</a>
+          
+          <a class="nav-item nav-link" href="{% url 'logout' %}">logout</a>
+        </div>
+      </div>
+    </nav>
+    <marquee direction="scroll">**Ramajayam and Assoicates Chartered Acccountants ** Ramajayam and Assoicates Chartered Acccountants ** </marquee>
+
+<br/>
+            {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+            {% endfor %}
+            {% endif %}
+            
+<br>
+            <form method="POST" class="row">
+                {% csrf_token %}
+                &emsp;&emsp;<input type="text" class="form-control col-lg-2" name="company_name" placeholder="company_name">&ensp;
+                
+                <input type="text" class="form-control col-lg-2" id="file_name" name="file_name" placeholder="file_name" >&ensp;
+                <br>
+                <select class="form-control col-lg-2" id="ay" name="ay">
+                    <option >17-18</option>
+                    <option >18-19</option>
+                    <option >19-20</option>
+                    <option >20-21</option>
+                    <option selected>21-22</option>                   
+                </select>&ensp;
+                <select class="form-control col-lg-2" id="status" name="status">
+                    <option selected>ACTIVE</option>
+                    <option >IN-ACTIVE</option>
+                </select>&ensp;
+                &ensp;
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+               <br><button type="submit" class="btn btn-primary col-lg-2" >Add Company</button>
+            </form>
+            <!--<div id="search-add-wrapper">
+              <form method="GET" style="display: flex;">
+                  <input type='text' name='search-area' placeholder="Search your task" value="{{search_input}}">
+                  <input class="button" type="submit" value='Search'>
+              </form>
+            </div>-->
+{% endblock content %}
