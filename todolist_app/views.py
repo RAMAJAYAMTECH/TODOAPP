@@ -24,7 +24,7 @@ from urllib import response
 from django.db.models.fields.related import ForeignKey
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from todolist_app.models import Tasklist,edit_page,gst_master,emp,work,client
+from todolist_app.models import Tasklist,edit_page,gst_master,emp,work,client,list
 from todolist_app.forms import TaskForm,TaskForm2
 from django.contrib import messages
 from taskmate2.settings import EMAIL_HOST_USER
@@ -575,7 +575,6 @@ def pdf5(request):
     return response
 
 """
-
 @login_required
 def search(request):
     if request.method == 'POST':
@@ -885,6 +884,30 @@ def todolist7(request):
         'countsuryawip': countsuryawip,
     }
     return render(request, 'suryapage.html',context)
+
+@login_required
+def file_management(request):
+    if request.method == "POST":
+        company_name = request.POST['company_name']
+        file_name = request.POST['file_name']
+        ay = request.POST['ay']
+        status = request.POST['status']
+        ok = list(company_name=company_name,file_name=file_name,ay=ay,status=status)  
+        ok.save()
+        return redirect('file_management')
+        
+    return render(request,'addcompany.html')
+
+@login_required
+def file_report(request):
+    all = list.objects.all()
+    return render(request,'file_list.html',{'all':all})
+
+@login_required
+def delete(request,pk):
+    all=list.objects.get(pk=all.pk)
+    all.delete()
+    return render(request,'file_list.html',{'all':all})
 
 @login_required
 def attendance(request):
