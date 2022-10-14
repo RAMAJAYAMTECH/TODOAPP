@@ -94,3 +94,12 @@ class client(models.Model):
 
     def __str__(self):
         return self.name
+
+class list(models.Model):
+
+    company_name = models.CharField(max_length=100,null=True)
+    file_name = models.CharField(max_length=100,primary_key=True)
+    ay = models.CharField(max_length=100,null=True)
+    status = models.CharField(max_length=100,null=True)
+    def __str__(self):
+        return self.company_name
