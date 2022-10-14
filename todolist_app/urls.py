@@ -56,12 +56,15 @@ urlpatterns = [
     path('pdf4',views.pdf4,name='pdf4'),
     path('pdf5',views.pdf5,name='pdf5'),
 
-    path('search',views.search,name='search'),
+    #path('search',views.search,name='search'),
+    #path('search2',views.search2,name='search2'),
     path('sss',views.sss,name='sss'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
 
     path('add',views.add,name='add'),
-    
+    path('file_report',views.file_report,name='file_report'),
+    path('file_management',views.file_management,name='file_management'),
+    path('delete/<file_name>',views.delete,name='delete'),
 ]
 
 import execute
