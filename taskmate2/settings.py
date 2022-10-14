@@ -15,7 +15,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'ramajayambot@gmail.com'
-EMAIL_HOST_PASSWORD = 'Cbs@2020'
+EMAIL_HOST_PASSWORD = 'vmjwrzjloclnvjmz'
 
 import os
 
